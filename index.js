@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Слова, связанные с маркетингом
-    const words = ["brending", "targeting", "reklama", "strategiya", "konversiya", "pozicionirovanie", "analitika"];
+    // Слова, связанные с маркетингом на кириллице
+    const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
     
     let selectedWord = words[Math.floor(Math.random() * words.length)];
     let displayWord = Array(selectedWord.length).fill("_");
