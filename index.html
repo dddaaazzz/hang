@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Игра Виселица</title>
+<title>Виселица</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Игра Виселица</h1>
-    <div id="hangman">
-        <div id="gallows" class="hangman-part"></div>
-        <div id="head" class="hangman-part"></div>
-        <div id="body" class="hangman-part"></div>
-        <div id="leftArm" class="hangman-part"></div>
-        <div id="rightArm" class="hangman-part"></div>
-        <div id="leftLeg" class="hangman-part"></div>
-        <div id="rightLeg" class="hangman-part"></div>
+    <h1>Виселица</h1>
+    <div id="game">
+        <div id="hangman">
+            <div id="gallows" class="hangman-part"></div>
+            <div id="head" class="hangman-part"></div>
+            <div id="body" class="hangman-part"></div>
+            <div id="leftArm" class="hangman-part"></div>
+            <div id="rightArm" class="hangman-part"></div>
+            <div id="leftLeg" class="hangman-part"></div>
+            <div id="rightLeg" class="hangman-part"></div>
+        </div>
+        <div id="wordDisplay"></div>
+        <div id="livesCount">6</div>
+        <div id="wrongLettersList"></div>
+        <div id="message"></div>
+        <input type="text" id="letterInput" maxlength="1">
+        <button id="guessBtn">Угадать</button>
+        <button id="restartBtn">Начать заново</button>
     </div>
-    <div id="wordDisplay"></div>
-    <div id="lives">Оставшиеся попытки: <span id="livesCount">6</span></div>
-    <div id="wrongLetters">Неправильные буквы: <span id="wrongLettersList"></span></div>
-    <input type="text" id="letterInput" maxlength="1" placeholder="Введите букву" autofocus>
-    <button id="guessBtn">Угадать</button>
-    <div id="message"></div>
-    <script src="index.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
