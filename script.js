@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Слова, связанные с маркетингом
-    const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
+    const words = ["brending", "targeting", "reklama", "strategiya", "konversiya", "pozicionirovanie", "analitika"];
     
     let selectedWord = words[Math.floor(Math.random() * words.length)];
-    let displayWord = Array(selectedWord.length).fill("_").join(" ");
+    let displayWord = Array(selectedWord.length).fill("_");
     let lives = 6;
     let wrongLetters = [];
 
@@ -15,14 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const guessBtn = document.getElementById('guessBtn');
     const letterInput = document.getElementById('letterInput');
 
+    // Части тела виселицы
+    const hangmanParts = [
+        document.getElementById('gallows'),
+        document.getElementById('head'),
+        document.getElementById('body'),
+        document.getElementById('leftArm'),
+        document.getElementById('rightArm'),
+        document.getElementById('leftLeg'),
+        document.getElementById('rightLeg')
+    ];
+
     // Инициализация игры
-    wordDisplay.innerHTML = displayWord;
+    wordDisplay.innerHTML = displayWord.join(" ");
     livesDisplay.innerHTML = lives;
 
     // Функция для обновления отображения слова
-    const updateDisplayWord = (updatedWord) => {
-        displayWord = updatedWord.split("").join(" ");
-        wordDisplay.innerHTML = displayWord;
+    const updateDisplayWord = () => {
+        wordDisplay.innerHTML = displayWord.join(" ");
     };
 
     // Основная функция проверки буквы
@@ -30,45 +40,49 @@ document.addEventListener("DOMContentLoaded", () => {
         const letterInputValue = letterInput.value.toLowerCase();
         messageDisplay.innerHTML = ""; // Очистка сообщения
 
+        // Проверка на пустой ввод или длину
         if (letterInputValue === "" || letterInputValue.length !== 1) {
             messageDisplay.innerHTML = "Введите одну букву!";
             return;
         }
 
+        // Проверка, была ли уже введена буква
         if (wrongLetters.includes(letterInputValue) || displayWord.includes(letterInputValue)) {
-            messageDisplay.innerHTML = "Эта буква уже была!";
+            messageDisplay.innerHTML = "Эта буква уже была угадана!";
             return;
         }
 
-        let updatedWord = "";
         let isCorrect = false;
 
+        // Проверка буквы в загаданном слове
         for (let i = 0; i < selectedWord.length; i++) {
             if (selectedWord[i] === letterInputValue) {
-                updatedWord += letterInputValue;
+                displayWord[i] = letterInputValue;  // Обновляем слово
                 isCorrect = true;
-            } else {
-                updatedWord += displayWord[i * 2];
             }
         }
 
         if (isCorrect) {
-            updateDisplayWord(updatedWord);
+            updateDisplayWord(); // Обновляем отображение слова на экране
             if (!displayWord.includes("_")) {
-                messageDisplay.innerHTML = "Поздравляем! Вы выиграли!";
+                messageDisplay.innerHTML = "Поздравляю! Вы выиграли!";
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
         } else {
+            // Если буква неправильная, добавляем в массив wrongLetters, уменьшаем жизни и рисуем виселицу
             wrongLetters.push(letterInputValue);
             lives--;
             wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
             livesDisplay.innerHTML = lives;
 
+            // Показываем часть виселицы
+            hangmanParts[6 - lives].style.display = "block";
+
             if (lives === 0) {
-    messageDisplay.innerHTML = "You lost! The word was: " + selectedWord;
-    letterInput.disabled = true;
-    guessBtn.disabled = true;
+                messageDisplay.innerHTML = Вы проиграли! Загаданное слово было: ${selectedWord};
+                letterInput.disabled = true;
+                guessBtn.disabled = true;
             }
         }
 
