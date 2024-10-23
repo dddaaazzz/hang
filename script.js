@@ -63,21 +63,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (isCorrect) {
             updateDisplayWord(); // Обновляем отображение слова на экране
+            // Проверяем, угадано ли всё слово
             if (!displayWord.includes("_")) {
                 messageDisplay.innerHTML = "Поздравляю! Вы выиграли!";
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
         } else {
-            // Если буква неправильная, добавляем в массив wrongLetters, уменьшаем жизни и рисуем виселицу
+            // Если буква неправильная
             wrongLetters.push(letterInputValue);
             lives--;
             wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
             updateLives(); // Обновляем отображение жизней
 
             // Показываем часть виселицы
-            hangmanParts[6 - lives].style.display = "block";
+            if (lives > 0) {
+                hangmanParts[6 - lives].style.display = "block";
+            }
 
+            // Проверка на проигрыш
             if (lives === 0) {
                 messageDisplay.innerHTML = Вы проиграли! Загаданное слово было: ${selectedWord};
                 letterInput.disabled = true;
