@@ -1,10 +1,12 @@
+HangmanGamescript.js
 document.addEventListener("DOMContentLoaded", () => {
     const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
-    
-    let selectedWord = words[Math.floor(Math.random() * words.length)];
-    let displayWord = Array(selectedWord.length).fill("_");
+
+    let selectedWord = "";
+    let displayWord = [];
     let lives = 6;
     let wrongLetters = [];
+    let guessedLetters = [];
 
     const wordDisplay = document.getElementById('wordDisplay');
     const livesDisplay = document.getElementById('livesCount');
@@ -23,9 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('rightLeg')
     ];
 
-    // Инициализация игры
-    updateDisplayWord();
-    updateLives();
+    const startGame = () => {
+        selectedWord = words[Math.floor(Math.random() * words.length)];
+        displayWord = Array(selectedWord.length).fill("_");
+        lives = 6;
+        wrongLetters = [];
+        guessedLetters = [];
+        hangmanParts.forEach(part => part.classList.remove('show')); // Hide hangman parts
+        updateDisplayWord();
+        updateLives();
+        updateWrongLetters();
+        messageDisplay.innerHTML = "";
+        letterInput.value = "";
+        letterInput.disabled = false;
+        guessBtn.disabled = false;
+    };
 
     const updateDisplayWord = () => {
         wordDisplay.innerHTML = displayWord.join(" ");
@@ -35,68 +49,53 @@ document.addEventListener("DOMContentLoaded", () => {
         livesDisplay.innerHTML = lives;
     };
 
+    const updateWrongLetters = () => {
+        wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
+    };
+
     const guessLetter = () => {
-        const letterInputValue = letterInput.value.toLowerCase();
-        messageDisplay.innerHTML = ""; // Очистка сообщения
+        const letter = letterInput.value.toLowerCase();
 
-        // Проверка на пустой ввод или длину
-        if (letterInputValue === ""  letterInputValue.length !== 1  !/^[а-яА-ЯёЁ]$/.test(letterInputValue)) {
-            messageDisplay.innerHTML = "Введите одну букву на кириллице!";
+        // Input validation
+        if (!letter || letter.length !== 1 || !letter.match(/[а-я]/i)) {
+            messageDisplay.innerHTML = "Пожалуйста, введите одну букву кириллицы.";
             return;
         }
 
-        // Проверка, была ли уже введена буква
-        if (wrongLetters.includes(letterInputValue) || displayWord.includes(letterInputValue)) {
-            messageDisplay.innerHTML = "Эта буква уже была угадана!";
+        if (guessedLetters.includes(letter)) {
+            messageDisplay.innerHTML = "Вы уже пробовали эту букву.";
             return;
         }
 
-        let isCorrect = false;
+        guessedLetters.push(letter);
 
-        // Проверка буквы в загаданном слове
-        for (let i = 0; i < selectedWord.length; i++) {
-            if (selectedWord[i] === letterInputValue) {
-                displayWord[i] = letterInputValue;  // Обновляем слово
-                isCorrect = true;
+        if (selectedWord.includes(letter)) {
+            for (let i = 0; i < selectedWord.length; i++) {
+                if (selectedWord[i] === letter) {
+                    displayWord[i] = letter;
+                }
             }
-        }
-
-        if (isCorrect) {
-            updateDisplayWord(); // Обновляем отображение слова на экране
-            // Проверяем, угадано ли всё слово
+            updateDisplayWord();
             if (!displayWord.includes("_")) {
-                messageDisplay.innerHTML = "Поздравляю! Вы выиграли!";
+                messageDisplay.innerHTML = "Поздравляем! Вы угадали слово!";
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
         } else {
-            // Если буква неправильная
-            wrongLetters.push(letterInputValue);
             lives--;
-            wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
-            updateLives(); // Обновляем отображение жизней
-
-            // Показываем часть виселицы
-            if (lives > 0) {
-                hangmanParts[6 - lives].style.display = "block";
-            }
-
-            // Проверка на проигрыш
+            wrongLetters.push(letter);
+            hangmanParts[6 - lives].classList.add('show'); // Show hangman part
+            updateLives();
+            updateWrongLetters();
             if (lives === 0) {
-                messageDisplay.innerHTML = Вы проиграли! Загаданное слово было: ${selectedWord};
+                messageDisplay.innerHTML = `Вы проиграли! Слово было: ${selectedWord}`;
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
         }
-
-        letterInput.value = ""; // Очистка поля ввода
+        letterInput.value = "";
     };
 
     guessBtn.addEventListener('click', guessLetter);
-
-    letterInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            guessLetter();
-        }
-    });
+    startGame(); // Start the game on page load
 });
