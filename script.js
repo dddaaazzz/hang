@@ -27,12 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // Инициализация игры
-    wordDisplay.innerHTML = displayWord.join(" ");
-    livesDisplay.innerHTML = lives;
+    updateDisplayWord(); // Отображение слова
+    updateLives(); // Отображение жизней
 
     // Функция для обновления отображения слова
     const updateDisplayWord = () => {
         wordDisplay.innerHTML = displayWord.join(" ");
+    };
+
+    // Функция для обновления количества оставшихся жизней
+    const updateLives = () => {
+        livesDisplay.innerHTML = lives;
     };
 
     // Основная функция проверки буквы
@@ -74,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
             wrongLetters.push(letterInputValue);
             lives--;
             wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
-            livesDisplay.innerHTML = lives;
+            updateLives(); // Обновляем отображение жизней
 
             // Показываем часть виселицы
             hangmanParts[6 - lives].style.display = "block";
