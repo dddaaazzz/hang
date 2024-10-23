@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Слова, связанные с маркетингом на кириллице
     const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
     
     let selectedWord = words[Math.floor(Math.random() * words.length)];
@@ -7,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let lives = 6;
     let wrongLetters = [];
 
-    // DOM элементы
     const wordDisplay = document.getElementById('wordDisplay');
     const livesDisplay = document.getElementById('livesCount');
     const wrongLettersDisplay = document.getElementById('wrongLettersList');
@@ -15,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const guessBtn = document.getElementById('guessBtn');
     const letterInput = document.getElementById('letterInput');
 
-    // Части тела виселицы
     const hangmanParts = [
         document.getElementById('gallows'),
         document.getElementById('head'),
@@ -27,20 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // Инициализация игры
-    updateDisplayWord(); // Отображение слова
-    updateLives(); // Отображение жизней
+    updateDisplayWord();
+    updateLives();
 
-    // Функция для обновления отображения слова
     const updateDisplayWord = () => {
         wordDisplay.innerHTML = displayWord.join(" ");
     };
 
-    // Функция для обновления количества оставшихся жизней
     const updateLives = () => {
         livesDisplay.innerHTML = lives;
     };
 
-    // Основная функция проверки буквы
     const guessLetter = () => {
         const letterInputValue = letterInput.value.toLowerCase();
         messageDisplay.innerHTML = ""; // Очистка сообщения
@@ -94,10 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
         letterInput.value = ""; // Очистка поля ввода
     };
 
-    // Обработка события нажатия кнопки
     guessBtn.addEventListener('click', guessLetter);
 
-    // Позволяет запускать проверку при нажатии Enter
     letterInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
             guessLetter();
