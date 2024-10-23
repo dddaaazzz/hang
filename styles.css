@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+#wordDisplay {
+    font-size: 24px;
+    letter-spacing: 10px;
+}
+
+#lives, #wrongLetters {
+    font-weight: bold;
+}
+
+input {
+    font-size: 20px;
+    padding: 10px;
+    margin-right: 10px;
+}
