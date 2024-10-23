@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             hangmanParts[6 - lives].style.display = "block";
 
             if (lives === 0) {
-                messageDisplay.innerHTML = Вы проиграли! Загаданное слово было: ${selectedWord};
+                messageDisplay.innerHTML = `Вы проиграли! Загаданное слово было: ${selectedWord}`;
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
