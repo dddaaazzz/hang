@@ -22,3 +22,73 @@ input {
     padding: 10px;
     margin-right: 10px;
 }
+
+/* Стили для виселицы */
+#hangman {
+    width: 200px;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hangman-part {
+    display: none;
+    position: absolute;
+    background-color: black;
+}
+
+/* Части виселицы */
+#gallows {
+    width: 100px;
+    height: 10px;
+    top: 0;
+    left: 50px;
+}
+
+#head {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 10px;
+    left: 80px;
+    border: 5px solid black;
+}
+
+#body {
+    width: 10px;
+    height: 70px;
+    top: 50px;
+    left: 95px;
+}
+
+#leftArm {
+    width: 50px;
+    height: 10px;
+    top: 70px;
+    left: 45px;
+    transform: rotate(-30deg);
+}
+
+#rightArm {
+    width: 50px;
+    height: 10px;
+    top: 70px;
+    left: 105px;
+    transform: rotate(30deg);
+}
+
+#leftLeg {
+    width: 50px;
+    height: 10px;
+    top: 120px;
+    left: 45px;
+    transform: rotate(30deg);
+}
+
+#rightLeg {
+    width: 50px;
+    height: 10px;
+    top: 120px;
+    left: 105px;
+    transform: rotate(-30deg);
+}
