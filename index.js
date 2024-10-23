@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDisplay.innerHTML = ""; // Очистка сообщения
 
         // Проверка на пустой ввод или длину
-        if (letterInputValue === "" || letterInputValue.length !== 1) {
-            messageDisplay.innerHTML = "Введите одну букву!";
+        if (letterInputValue === "" || letterInputValue.length !== 1 || !/^[а-яА-ЯёЁ]$/.test(letterInputValue)) {
+            messageDisplay.innerHTML = "Введите одну букву на кириллице!";
             return;
         }
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             hangmanParts[6 - lives].style.display = "block";
 
             if (lives === 0) {
-                messageDisplay.innerHTML = `Вы проиграли! Загаданное слово было: ${selectedWord}`;
+                messageDisplay.innerHTML =const letterInputValue = letterInput.value.toLowerCase()
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
