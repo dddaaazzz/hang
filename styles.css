@@ -1,32 +1,94 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игра Висельник - Маркетинг</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Игра Висельник - Маркетинг</h1>
-    
-    <!-- Контейнер для виселицы -->
-    <div id="hangman">
-        <div class="hangman-part" id="gallows"></div>
-        <div class="hangman-part" id="head"></div>
-        <div class="hangman-part" id="body"></div>
-        <div class="hangman-part" id="leftArm"></div>
-        <div class="hangman-part" id="rightArm"></div>
-        <div class="hangman-part" id="leftLeg"></div>
-        <div class="hangman-part" id="rightLeg"></div>
-    </div>
-    
-    <p id="wordDisplay">_ _ _ _ _ _ _</p>
-    <p>Оставшиеся попытки: <span id="lives"></span></p>
-    <p>Неправильные буквы: <span id="wrongLetters"></span></p>
-    <input type="text" id="letterInput" maxlength="1" placeholder="Введите букву" />
-    <button id="guessBtn">Угадать</button>
-    <p id="message"></p>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+h1 {
+    color: #4CAF50;
+}
+
+#wordDisplay {
+    font-size: 24px;
+    letter-spacing: 10px;
+}
+
+#lives, #wrongLetters {
+    font-weight: bold;
+}
+
+input {
+    font-size: 20px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+/* Стили для виселицы */
+#hangman {
+    width: 200px;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hangman-part {
+    display: none;
+    position: absolute;
+    background-color: black;
+}
+
+/* Части виселицы */
+#gallows {
+    width: 100px;
+    height: 10px;
+    top: 0;
+    left: 50px;
+}
+
+#head {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 10px;
+    left: 80px;
+    border: 5px solid black;
+}
+
+#body {
+    width: 10px;
+    height: 70px;
+    top: 50px;
+    left: 95px;
+}
+
+#leftArm {
+    width: 50px;
+    height: 10px;
+    top: 70px;
+    left: 45px;
+    transform: rotate(-30deg);
+}
+
+#rightArm {
+    width: 50px;
+    height: 10px;
+    top: 70px;
+    left: 105px;
+    transform: rotate(30deg);
+}
+
+#leftLeg {
+    width: 50px;
+    height: 10px;
+    top: 120px;
+    left: 45px;
+    transform: rotate(30deg);
+}
+
+#rightLeg {
+    width: 50px;
+    height: 10px;
+    top: 120px;
+    left: 105px;
+    transform: rotate(-30deg);
+}
