@@ -1,7 +1,5 @@
-HangmanGamescript.js
 document.addEventListener("DOMContentLoaded", () => {
     const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
-
     let selectedWord = "";
     let displayWord = [];
     let lives = 6;
@@ -12,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const livesDisplay = document.getElementById('livesCount');
     const wrongLettersDisplay = document.getElementById('wrongLettersList');
     const messageDisplay = document.getElementById('message');
-    const guessBtn = document.getElementById('guessBtn');
     const letterInput = document.getElementById('letterInput');
+    const guessBtn = document.getElementById('guessBtn');
+    const restartBtn = document.getElementById('restartBtn');
 
     const hangmanParts = [
         document.getElementById('gallows'),
@@ -25,50 +24,47 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('rightLeg')
     ];
 
+
     const startGame = () => {
         selectedWord = words[Math.floor(Math.random() * words.length)];
         displayWord = Array(selectedWord.length).fill("_");
         lives = 6;
         wrongLetters = [];
         guessedLetters = [];
-        hangmanParts.forEach(part => part.classList.remove('show')); // Hide hangman parts
+        hangmanParts.forEach(part => part.classList.remove('show'));
         updateDisplayWord();
         updateLives();
         updateWrongLetters();
-        messageDisplay.innerHTML = "";
+        messageDisplay.textContent = "";
         letterInput.value = "";
         letterInput.disabled = false;
         guessBtn.disabled = false;
+        restartBtn.disabled = true;
     };
 
     const updateDisplayWord = () => {
-        wordDisplay.innerHTML = displayWord.join(" ");
+        wordDisplay.textContent = displayWord.join(" ");
     };
 
     const updateLives = () => {
-        livesDisplay.innerHTML = lives;
+        livesDisplay.textContent = lives;
     };
 
     const updateWrongLetters = () => {
-        wrongLettersDisplay.innerHTML = wrongLetters.join(", ");
+        wrongLettersDisplay.textContent = wrongLetters.join(", ");
     };
 
     const guessLetter = () => {
         const letter = letterInput.value.toLowerCase();
-
-        // Input validation
         if (!letter || letter.length !== 1 || !letter.match(/[а-я]/i)) {
-            messageDisplay.innerHTML = "Пожалуйста, введите одну букву кириллицы.";
+            messageDisplay.textContent = "Пожалуйста, введите одну букву кириллицы.";
             return;
         }
-
         if (guessedLetters.includes(letter)) {
-            messageDisplay.innerHTML = "Вы уже пробовали эту букву.";
+            messageDisplay.textContent = "Вы уже пробовали эту букву.";
             return;
         }
-
         guessedLetters.push(letter);
-
         if (selectedWord.includes(letter)) {
             for (let i = 0; i < selectedWord.length; i++) {
                 if (selectedWord[i] === letter) {
@@ -77,25 +73,28 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             updateDisplayWord();
             if (!displayWord.includes("_")) {
-                messageDisplay.innerHTML = "Поздравляем! Вы угадали слово!";
+                messageDisplay.textContent = "Поздравляем! Вы угадали слово!";
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
+                restartBtn.disabled = false;
             }
         } else {
             lives--;
             wrongLetters.push(letter);
-            hangmanParts[6 - lives].classList.add('show'); // Show hangman part
+            hangmanParts[6 - lives].classList.add('show');
             updateLives();
             updateWrongLetters();
             if (lives === 0) {
-                messageDisplay.innerHTML = `Вы проиграли! Слово было: ${selectedWord}`;
+                messageDisplay.textContent = `Вы проиграли! Слово было: ${selectedWord}`;
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
+                restartBtn.disabled = false;
             }
         }
         letterInput.value = "";
     };
 
     guessBtn.addEventListener('click', guessLetter);
-    startGame(); // Start the game on page load
+    restartBtn.addEventListener('click', startGame);
+    startGame();
 });
