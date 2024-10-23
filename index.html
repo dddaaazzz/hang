@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игра Висельник - Маркетинг</title>
+    <title>Hangman Game - Marketing</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Игра Висельник - Маркетинг</h1>
+    <h1>Hangman Game - Marketing</h1>
+    
+    <!-- Добавляем контейнер для виселицы -->
+    <div id="hangman">
+        <div class="hangman-part" id="gallows"></div>
+        <div class="hangman-part" id="head"></div>
+        <div class="hangman-part" id="body"></div>
+        <div class="hangman-part" id="leftArm"></div>
+        <div class="hangman-part" id="rightArm"></div>
+        <div class="hangman-part" id="leftLeg"></div>
+        <div class="hangman-part" id="rightLeg"></div>
+    </div>
+    
     <p id="wordDisplay">_ _ _ _ _ _ _</p>
-    <p>Осталось попыток: <span id="lives"></span></p>
-    <p>Неправильные буквы: <span id="wrongLetters"></span></p>
-    <input type="text" id="letterInput" maxlength="1" placeholder="Введите букву" />
-    <button onclick="guessLetter()">Угадать</button>
+    <p>Remaining attempts: <span id="lives"></span></p>
+    <p>Wrong letters: <span id="wrongLetters"></span></p>
+    <input type="text" id="letterInput" maxlength="1" placeholder="Enter a letter" />
+    <button id="guessBtn">Guess</button>
     <p id="message"></p>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
