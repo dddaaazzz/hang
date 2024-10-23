@@ -9,7 +9,7 @@
 <body>
     <h1>Hangman Game - Marketing</h1>
     
-    <!-- Добавляем контейнер для виселицы -->
+    <!-- Контейнер для отображения виселицы -->
     <div id="hangman">
         <div class="hangman-part" id="gallows"></div>
         <div class="hangman-part" id="head"></div>
@@ -19,14 +19,20 @@
         <div class="hangman-part" id="leftLeg"></div>
         <div class="hangman-part" id="rightLeg"></div>
     </div>
-    
+
+    <!-- Отображение слова и информация об игре -->
     <p id="wordDisplay">_ _ _ _ _ _ _</p>
     <p>Remaining attempts: <span id="lives"></span></p>
     <p>Wrong letters: <span id="wrongLetters"></span></p>
+    
+    <!-- Поле ввода и кнопка -->
     <input type="text" id="letterInput" maxlength="1" placeholder="Enter a letter" />
     <button id="guessBtn">Guess</button>
+    
+    <!-- Сообщение для пользователя -->
     <p id="message"></p>
 
+    <!-- Подключение JavaScript -->
     <script src="index.js"></script>
 </body>
 </html>
