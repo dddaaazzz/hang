@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangman Game - Marketing</title>
+    <title>Игра Висельник - Маркетинг</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Hangman Game - Marketing</h1>
+    <h1>Игра Висельник - Маркетинг</h1>
     
-    <!-- Контейнер для отображения виселицы -->
+    <!-- Контейнер для виселицы -->
     <div id="hangman">
         <div class="hangman-part" id="gallows"></div>
         <div class="hangman-part" id="head"></div>
@@ -19,20 +19,14 @@
         <div class="hangman-part" id="leftLeg"></div>
         <div class="hangman-part" id="rightLeg"></div>
     </div>
-
-    <!-- Отображение слова и информация об игре -->
+    
     <p id="wordDisplay">_ _ _ _ _ _ _</p>
-    <p>Remaining attempts: <span id="lives"></span></p>
-    <p>Wrong letters: <span id="wrongLetters"></span></p>
-    
-    <!-- Поле ввода и кнопка -->
-    <input type="text" id="letterInput" maxlength="1" placeholder="Enter a letter" />
-    <button id="guessBtn">Guess</button>
-    
-    <!-- Сообщение для пользователя -->
+    <p>Оставшиеся попытки: <span id="lives"></span></p>
+    <p>Неправильные буквы: <span id="wrongLetters"></span></p>
+    <input type="text" id="letterInput" maxlength="1" placeholder="Введите букву" />
+    <button id="guessBtn">Угадать</button>
     <p id="message"></p>
 
-    <!-- Подключение JavaScript -->
-    <script src="index.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
