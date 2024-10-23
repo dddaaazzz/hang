@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // DOM элементы
     const wordDisplay = document.getElementById('wordDisplay');
-    const livesDisplay = document.getElementById('lives');
-    const wrongLettersDisplay = document.getElementById('wrongLetters');
+    const livesDisplay = document.getElementById('livesCount');
+    const wrongLettersDisplay = document.getElementById('wrongLettersList');
     const messageDisplay = document.getElementById('message');
     const guessBtn = document.getElementById('guessBtn');
     const letterInput = document.getElementById('letterInput');
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDisplay.innerHTML = ""; // Очистка сообщения
 
         // Проверка на пустой ввод или длину
-        if (letterInputValue === "" || letterInputValue.length !== 1 || !/^[а-яА-ЯёЁ]$/.test(letterInputValue)) {
+        if (letterInputValue === ""  letterInputValue.length !== 1  !/^[а-яА-ЯёЁ]$/.test(letterInputValue)) {
             messageDisplay.innerHTML = "Введите одну букву на кириллице!";
             return;
         }
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             hangmanParts[6 - lives].style.display = "block";
 
             if (lives === 0) {
-                messageDisplay.innerHTML =const letterInputValue = letterInput.value.toLowerCase()
+                messageDisplay.innerHTML = Вы проиграли! Загаданное слово было: ${selectedWord};
                 letterInput.disabled = true;
                 guessBtn.disabled = true;
             }
