@@ -1,100 +1,56 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const words = ["брендинг", "таргетинг", "реклама", "стратегия", "конверсия", "позиционирование", "аналитика"];
-    let selectedWord = "";
-    let displayWord = [];
-    let lives = 6;
-    let wrongLetters = [];
-    let guessedLetters = [];
+const words = ["маркетинг", "продажи", "статистика", "метрики", "анализ", "реклама", "креатив", "ребрендинг"];
+let word = "";
+let guessedWord = [];
+let wrongLetters = [];
+let attemptsLeft = 6;
 
-    const wordDisplay = document.getElementById('wordDisplay');
-    const livesDisplay = document.getElementById('livesCount');
-    const wrongLettersDisplay = document.getElementById('wrongLettersList');
-    const messageDisplay = document.getElementById('message');
-    const letterInput = document.getElementById('letterInput');
-    const guessBtn = document.getElementById('guessBtn');
-    const restartBtn = document.getElementById('restartBtn');
+function initializeGame() {
+    word = words[Math.floor(Math.random() * words.length)];
+    guessedWord = Array(word.length).fill("_");
+    wrongLetters = [];
+    attemptsLeft = 6;
+    updateDisplay();
+    document.getElementById("message").textContent = "";
+}
 
-    const hangmanParts = [
-        document.getElementById('gallows'),
-        document.getElementById('head'),
-        document.getElementById('body'),
-        document.getElementById('leftArm'),
-        document.getElementById('rightArm'),
-        document.getElementById('leftLeg'),
-        document.getElementById('rightLeg')
-    ];
+function updateDisplay() {
+    document.getElementById("wordDisplay").textContent = guessedWord.join(" ");
+    document.getElementById("wrongLetters").textContent = wrongLetters.join(", ");
+    document.getElementById("attemptsLeft").textContent = attemptsLeft;
+}
 
+function guessLetter() {
+    const letterInput = document.getElementById("letterInput");
+    const letter = letterInput.value.toLowerCase();
 
-    const startGame = () => {
-        selectedWord = words[Math.floor(Math.random() * words.length)];
-        displayWord = Array(selectedWord.length).fill("_");
-        lives = 6;
-        wrongLetters = [];
-        guessedLetters = [];
-        hangmanParts.forEach(part => part.classList.remove('show'));
-        updateDisplayWord();
-        updateLives();
-        updateWrongLetters();
-        messageDisplay.textContent = "";
-        letterInput.value = "";
-        letterInput.disabled = false;
-        guessBtn.disabled = false;
-        restartBtn.disabled = true;
-    };
-
-    const updateDisplayWord = () => {
-        wordDisplay.textContent = displayWord.join(" ");
-    };
-
-    const updateLives = () => {
-        livesDisplay.textContent = lives;
-    };
-
-    const updateWrongLetters = () => {
-        wrongLettersDisplay.textContent = wrongLetters.join(", ");
-    };
-
-    const guessLetter = () => {
-        const letter = letterInput.value.toLowerCase();
-        if (!letter || letter.length !== 1 || !letter.match(/[а-я]/i)) {
-            messageDisplay.textContent = "Пожалуйста, введите одну букву кириллицы.";
-            return;
-        }
-        if (guessedLetters.includes(letter)) {
-            messageDisplay.textContent = "Вы уже пробовали эту букву.";
-            return;
-        }
-        guessedLetters.push(letter);
-        if (selectedWord.includes(letter)) {
-            for (let i = 0; i < selectedWord.length; i++) {
-                if (selectedWord[i] === letter) {
-                    displayWord[i] = letter;
+    if (letter && !wrongLetters.includes(letter) && !guessedWord.includes(letter)) {
+        if (word.includes(letter)) {
+            for (let i = 0; i < word.length; i++) {
+                if (word[i] === letter) {
+                    guessedWord[i] = letter;
                 }
             }
-            updateDisplayWord();
-            if (!displayWord.includes("_")) {
-                messageDisplay.textContent = "Поздравляем! Вы угадали слово!";
-                letterInput.disabled = true;
-                guessBtn.disabled = true;
-                restartBtn.disabled = false;
-            }
         } else {
-            lives--;
             wrongLetters.push(letter);
-            hangmanParts[6 - lives].classList.add('show');
-            updateLives();
-            updateWrongLetters();
-            if (lives === 0) {
-                messageDisplay.textContent = `Вы проиграли! Слово было: ${selectedWord}`;
-                letterInput.disabled = true;
-                guessBtn.disabled = true;
-                restartBtn.disabled = false;
-            }
+            attemptsLeft--;
         }
-        letterInput.value = "";
-    };
+    }
 
-    guessBtn.addEventListener('click', guessLetter);
-    restartBtn.addEventListener('click', startGame);
-    startGame();
-});
+    letterInput.value = "";
+    checkGameStatus();
+    updateDisplay();
+}
+
+function checkGameStatus() {
+    if (attemptsLeft === 0) {
+        document.getElementById("message").textContent = `Вы проиграли! Загаданное слово было: ${word}`;
+    } else if (!guessedWord.includes("_")) {
+        document.getElementById("message").textContent = "Поздравляем! Вы угадали слово!";
+    }
+}
+
+function restartGame() {
+    initializeGame();
+}
+
+initializeGame();
